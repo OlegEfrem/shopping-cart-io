@@ -31,3 +31,4 @@ lazy val root = (project in file("."))
 ThisBuild / coverageEnabled := true
 ThisBuild / coverageFailOnMinimum := true
 ThisBuild / coverageMinimumStmtTotal := 100
+ThisBuild / coverageExcludedPackages := "com.shopping.cart.Main"
