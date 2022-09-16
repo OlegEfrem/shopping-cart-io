@@ -13,6 +13,11 @@ lazy val root = (project in file(".")).settings(
     "org.typelevel" %% "cats-effect-std" % "3.3.12",
     // better monadic for compiler plugin as suggested by documentation
     compilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.1"),
-    "org.typelevel" %% "munit-cats-effect-3" % "1.0.7" % Test
+    "org.typelevel" %% "munit-cats-effect-3" % "1.0.7" % Test,
+    "org.scalatest" %% "scalatest" % "3.2.11" % Test
   )
 )
+
+ThisBuild / coverageEnabled := true
+ThisBuild / coverageFailOnMinimum := true
+ThisBuild / coverageMinimumStmtTotal := 100
