@@ -30,3 +30,49 @@ Package structure for [Main Code](src/main) is:
 * add acceptance, performance, smoke and security tests;
 * package code as docker images for deployment in cloud (for kubernetes for example);
 * add ci build and automatic testing & deployment to different environments;
+
+# Domain model structure
+## Receipt
+```json
+{
+  "cart" : {
+    "products" : [
+      {
+        "product" : {
+          "name" : "Cornflakes",
+          "price" : {
+            "value" : 2.52
+          }
+        },
+        "quantity" : 2,
+        "cost" : {
+          "value" : 5.04
+        }
+      },
+      {
+        "product" : {
+          "name" : "Weetabix",
+          "price" : {
+            "value" : 9.98
+          }
+        },
+        "quantity" : 1,
+        "cost" : {
+          "value" : 9.98
+        }
+      }
+    ]
+  },
+  "totals" : {
+    "subtotal" : {
+      "value" : 15.02
+    },
+    "tax" : {
+      "value" : 1.88
+    },
+    "total" : {
+      "value" : 16.90
+    }
+  }
+}
+```
