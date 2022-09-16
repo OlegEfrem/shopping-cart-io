@@ -1,4 +1,4 @@
-package com.shopping.cart.domain.model
+package com.shopping.cart.model
 
 import enumeratum._
 
@@ -17,6 +17,6 @@ object ProductName extends Enum[ProductName] with CirceEnum[ProductName] {
 
 case class NotPricedProduct(name: ProductName, quantity: Int)
 
-case class PricedProduct(product: NotPricedProduct, price: Money)
+case class PricedProduct(product: NotPricedProduct, price: PositiveSmallDecimal)
 
 case class ShoppingCart(products: Seq[PricedProduct])

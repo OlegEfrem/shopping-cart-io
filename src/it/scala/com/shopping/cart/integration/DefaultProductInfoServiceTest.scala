@@ -1,6 +1,6 @@
 package com.shopping.cart.integration
 
-import com.shopping.cart.domain.model.ProductName
+import com.shopping.cart.model.ProductName
 import munit.CatsEffectSuite
 
 class DefaultProductInfoServiceTest extends CatsEffectSuite {
@@ -17,7 +17,7 @@ class DefaultProductInfoServiceTest extends CatsEffectSuite {
   ProductName.values.foreach { productName =>
     val expectedPrice: BigDecimal = expectedPrices(productName)
     test(s"should return $expectedPrice for $productName") {
-      service.priceFor(productName).map(price => assertEquals(price.amount, expectedPrice))
+      service.priceFor(productName).map(price => assertEquals(price.number, expectedPrice))
     }
   }
 }

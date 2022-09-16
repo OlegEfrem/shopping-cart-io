@@ -1,11 +1,11 @@
 package com.shopping.cart.integration
 
 import cats.effect.IO
-import com.shopping.cart.domain.model.{Money, ProductName}
+import com.shopping.cart.model.{PositiveSmallDecimal, ProductName}
 import okhttp3.{OkHttpClient, Request}
 
 trait ProductInfoService {
-  def priceFor(product: ProductName): IO[Money]
+  def priceFor(product: ProductName): IO[PositiveSmallDecimal]
 }
 
 object ProductInfoService {
@@ -21,11 +21,11 @@ class DefaultProductInfoService extends ProductInfoService {
 
   private val client = new OkHttpClient()
 
-  override def priceFor(product: ProductName): IO[Money] = {
+  override def priceFor(product: ProductName): IO[PositiveSmallDecimal] = {
     for {
       response <- getProductInfo(product)
       productInfo: ProductInfo <- IO.fromEither(decode[ProductInfo](response))
-    } yield Money(productInfo.price)
+    } yield PositiveSmallDecimal(productInfo.price)
   }
 
   type ResponsePayload = String
