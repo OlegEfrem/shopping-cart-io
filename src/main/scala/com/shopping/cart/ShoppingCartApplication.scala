@@ -9,8 +9,8 @@ import com.shopping.cart.integration.implementations.CachedPricingService
 import scala.annotation.tailrec
 
 object ShoppingCartApplication {
+  private val pricingService: PricingService = new CachedPricingService
   private val shoppingService: ShoppingService = new ConfigurableShoppingService(Configuration(tax = PositiveSmallDecimal(12.5)))
-  private val productInfoService: PricingService = new CachedPricingService
   type Quantity = Int
   type ProductPrice = PositiveSmallDecimal
 
@@ -34,7 +34,7 @@ object ShoppingCartApplication {
     for {
       _ <- IO.raiseUnless(quantity > 0)(new IllegalArgumentException(s"Quantity must be bigger than 0, but was $quantity"))
       cart: ShoppingCart <- toCart
-      price: ProductPrice <- productInfoService.priceFor(productName)
+      price: ProductPrice <- pricingService.priceFor(productName)
     } yield shoppingService.add(ShoppingProduct(productName, price), quantity, cart)
   }
 

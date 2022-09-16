@@ -24,7 +24,7 @@ Package structure for [Main Code](src/main) is:
       * ![coverageReport](doc/img/coverageReport.png)
 
 # TODO: 
-* to make `domain` package fully functional error throwing must be eliminated and express possible failures in the signature using error indicating wrapper types like: Either, Validated, MonadError, etc.
+* to make `domain` package fully functional error throwing must be eliminated/wrapped and express possible failures in the signature using error indicating wrapper types like: Either, Validated, MonadError, etc.
 * add 'scalafmt' to automatically format files;
 * add an API layer to be possible to interact with the application;
 * add acceptance, performance, smoke and security tests;
