@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers
 
 class PositiveSmallDecimalTest extends AnyFreeSpec with Matchers {
 
-  "PositiveSmallDecimal should" - {
+  "should" - {
     "only show 2 decimals" in {
       PositiveSmallDecimal(1.2301).value shouldBe BigDecimal(1.23)
       PositiveSmallDecimal(1.234).value shouldNot be(BigDecimal(1.234))

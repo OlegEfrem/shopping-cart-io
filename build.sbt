@@ -22,9 +22,9 @@ lazy val root = (project in file("."))
       "io.circe" %% "circe-generic" % "0.14.2",
       "io.circe" %% "circe-parser" % "0.14.2",
       "com.beachape" %% "enumeratum-circe" % "1.7.0",
-      "org.typelevel" %% "munit-cats-effect-3" % "1.0.7" % Test,
-      "org.scalatest" %% "scalatest" % "3.2.13" % Test,
-      "com.squareup.okhttp3" % "mockwebserver" % "4.10.0" % Test
+      "org.typelevel" %% "munit-cats-effect-3" % "1.0.7" % "it,test",
+      "org.scalatest" %% "scalatest" % "3.2.13" % "it,test",
+      "com.squareup.okhttp3" % "mockwebserver" % "4.10.0" % "it,test"
     )
   )
 
@@ -32,3 +32,5 @@ ThisBuild / coverageEnabled := true
 ThisBuild / coverageFailOnMinimum := true
 ThisBuild / coverageMinimumStmtTotal := 100
 ThisBuild / coverageExcludedPackages := "com.shopping.cart.Main"
+
+IntegrationTest / parallelExecution := false
