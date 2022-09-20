@@ -24,7 +24,8 @@ class CachedPricingService extends PricingService {
     for {
       response <- getProductInfo(product)
       productInfo: ProductInfo <- IO.fromEither(decode[ProductInfo](response))
-    } yield PositiveSmallDecimal(productInfo.price)
+      price <- IO.fromEither(PositiveSmallDecimal(productInfo.price))
+    } yield price
   }
 
   type ResponsePayload = String

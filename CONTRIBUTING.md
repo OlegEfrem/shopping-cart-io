@@ -10,7 +10,7 @@ Package structure for [Main Code](src/main) is:
 * [domain](src/main/scala/com/shopping/cart/domain) - here is all the business domain data structures and logic:
   * [model](src/main/scala/com/shopping/cart/domain/model) - business data structures/types;
   * [service](src/main/scala/com/shopping/cart/domain/service)  - business logic functions with inputs and outputs from the model;
-  * IMPORTANT: all classes in `domain` package should be effect free, only pure functions with everything visible in their signatures, no invisible internal state modification like in OOP.
+  * IMPORTANT: all classes in `domain` package should be effect free, only pure functions with everything visible in their signatures, no invisible internal state modification like in OOP and no exception throwing.
 * [integration](src/main/scala/com/shopping/cart/integration)
   * all external service integrations for retrieving or pushing data, like web api calls
 * NOTE: 
@@ -23,8 +23,7 @@ Package structure for [Main Code](src/main) is:
     * it will look like:
       * ![coverageReport](doc/img/coverageReport.png)
 
-# TODO: 
-* to make `domain` package fully functional error throwing must be eliminated/wrapped and express possible failures in the signature using error indicating wrapper types like: Either, Validated, MonadError, etc.
+# TODO:
 * add 'scalafmt' to automatically format files;
 * add an API layer to be possible to interact with the application;
 * add acceptance, performance, smoke and security tests;

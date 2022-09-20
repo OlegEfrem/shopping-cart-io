@@ -12,8 +12,8 @@ import scala.math.BigDecimal.RoundingMode
 case class PositiveSmallDecimal private(value: BigDecimal)
 
 object PositiveSmallDecimal {
-  def apply(number: BigDecimal): PositiveSmallDecimal = {
-    require(number > 0, s"Positive small decimal must be bigger than zero, but it was: $number")
-    new PositiveSmallDecimal(number.setScale(2, RoundingMode.HALF_UP))
+  def apply(number: BigDecimal): Either[ShoppingCartError, PositiveSmallDecimal] = {
+    Validator.biggerThanZero(number, s"Positive small decimal must be bigger than zero, but was: $number").map(
+      n => new PositiveSmallDecimal(n.setScale(2, RoundingMode.HALF_UP)))
   }
 }

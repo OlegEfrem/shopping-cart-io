@@ -6,18 +6,20 @@ import com.shopping.cart.domain.service.ShoppingService
 import com.shopping.cart.domain.service.implementations.ConfigurableShoppingService
 import com.shopping.cart.integration.PricingService
 import com.shopping.cart.integration.implementations.CachedPricingService
+
 import scala.annotation.tailrec
 
 object ShoppingCartApplication {
   private val pricingService: PricingService = new CachedPricingService
-  private val shoppingService: ShoppingService = new ConfigurableShoppingService(Configuration(tax = PositiveSmallDecimal(12.5)))
+  private val shoppingService: ShoppingService = new ConfigurableShoppingService(Configuration(tax = 12.5))
   type Quantity = Int
   type ProductPrice = PositiveSmallDecimal
 
   def buy(products: (ProductName, Quantity)*): IO[Receipt] = {
     for {
       shoppingCart <- addProductsToCart(products.toList, cart = IO.pure(ShoppingCart(Seq.empty)))
-    } yield shoppingService.checkout(shoppingCart)
+      receipt <- IO.fromEither(shoppingService.checkout(shoppingCart))
+    } yield receipt
   }
 
   @tailrec
@@ -32,10 +34,11 @@ object ShoppingCartApplication {
 
   private def addProduct(productName: ProductName, quantity: Quantity, toCart: IO[ShoppingCart]): IO[ShoppingCart] = {
     for {
-      _ <- IO.raiseUnless(quantity > 0)(new IllegalArgumentException(s"Quantity must be bigger than 0, but was $quantity"))
+      _ <- IO.raiseUnless(quantity > 0)(new IllegalArgumentException(s"Quantity must be bigger than 0, but was $quantity")) //TODO: see if this can be removed
       cart: ShoppingCart <- toCart
       price: ProductPrice <- pricingService.priceFor(productName)
-    } yield shoppingService.add(ShoppingProduct(productName, price), quantity, cart)
+      newCart: ShoppingCart <- IO.fromEither(shoppingService.add(ShoppingProduct(productName, price), quantity, cart))
+    } yield newCart
   }
 
 }

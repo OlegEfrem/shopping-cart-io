@@ -22,7 +22,7 @@ trait ShoppingService {
    *                 as opposed to OOP where the cart would have a method to add products to itself as a side effect.
    * @return [[ShoppingCart]] with the new [[CartItem]] added having the total cost of the product quantity calculated.
    * */
-  def add(product: ShoppingProduct, quantity: Int, toCart: ShoppingCart): ShoppingCart
+  def add(product: ShoppingProduct, quantity: Int, toCart: ShoppingCart): Either[ShoppingCartError, ShoppingCart]
 
   /**
    * Function to calculate the totals for the [[ShoppingCart]].
@@ -30,7 +30,7 @@ trait ShoppingService {
    * @param cart the [[ShoppingCart]] with all [[CartItem]] representing the cost for all [[ShoppingProduct]] quantity.
    * @return [[Receipt]] which contains the [[ShoppingCart]] with overall cost in [[ReceiptTotals]]
    * */
-  def checkout(cart: ShoppingCart): Receipt
+  def checkout(cart: ShoppingCart): Either[ShoppingCartError, Receipt]
 
 }
 
